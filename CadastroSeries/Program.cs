@@ -19,13 +19,13 @@ namespace CadastroSeries
                         InserirSeries();
                         break;
                     case "3":
-                        // AtualizarSeries();
+                        AtualizarSeries();
                         break;
                     case "4":
-                        // ExcluirSerie();
+                        ExcluirSerie();
                         break;
                     case "5":
-                        // VisualizarSerie();
+                        VisualizarSerie();
                         break;
                     case "C":
                         Console.Clear();
@@ -38,6 +38,55 @@ namespace CadastroSeries
             }
             Console.WriteLine("Obrigado por utilizar DVS series!");
             Console.ReadLine();
+        }
+
+        private static void VisualizarSerie()
+        {
+            Console.Write("Digite o id da série: ");
+            int entradaIndice = int.Parse(Console.ReadLine());
+
+            var serie = repositorio.retornaPorID(entradaIndice);
+
+            Console.WriteLine(serie);
+        }
+
+        private static void AtualizarSeries()
+        {
+            Console.Write("Digite o id da série: ");
+            int indiceSerie = int.Parse(Console.ReadLine());
+
+            foreach (int i in Enum.GetValues(typeof(Genero)))
+            {
+                Console.WriteLine("{0}-{1}", i, Enum.GetName(typeof(Genero), i));
+            }
+            Console.Write("Digite o gênero entre as opções acima: ");
+            int entradaGenero = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o Título da Série: ");
+            string entradaTitulo = Console.ReadLine();
+
+            Console.Write("Digite o Ano de Início da Série: ");
+            int entradaAno = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite a Descrição da Série: ");
+            string entradaDescricao = Console.ReadLine();
+
+            Series atualizarSerie = new Series(id: indiceSerie,
+            genero: (Genero)entradaGenero,
+            titulo: entradaTitulo,
+            ano: entradaAno,
+            descricao: entradaDescricao);
+
+            repositorio.Atualizar(indiceSerie, atualizarSerie);
+
+        }
+
+        private static void ExcluirSerie()
+        {
+            Console.Write("Digite o id da Série: ");
+            int entradaIndice = int.Parse(Console.ReadLine());
+
+            repositorio.Excluir(entradaIndice);
         }
 
         private static void InserirSeries()
@@ -83,7 +132,9 @@ namespace CadastroSeries
             }
             foreach (var serie in lista)
             {
-                Console.WriteLine("#ID {0}: - {1}", serie.retornaID(), serie.retonaTitulo());
+                var teste = serie.retornaExcluido();
+                Console.WriteLine("#ID {0}: - {1} {2}", serie.retornaID(), serie.retonaTitulo(), teste? "*Excluido*":"");
+
             }
         }
 
