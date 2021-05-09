@@ -9,32 +9,32 @@ namespace CadastroSeries
         private List<Series> listaSerie = new List<Series>();
         public void Atualizar(int id, Series entidade)
         {
-            throw new NotImplementedException();
+            listaSerie[id] = entidade;
         }
 
         public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            listaSerie[id].Exclui();
         }
 
         public void Insert(Series entidade)
         {
-            throw new NotImplementedException();
+            listaSerie.Add(entidade);
         }
 
         public List<Series> Lista()
         {
-            throw new NotImplementedException();
+           return listaSerie;
         }
 
         public int ProximoId()
         {
-            throw new NotImplementedException();
+            return listaSerie.Count;
         }
 
         public Series retornaPorID(int id)
         {
-            throw new NotImplementedException();
+           return listaSerie[id];
         }
     }
 }
